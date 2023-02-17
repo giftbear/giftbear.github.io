@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Linux扩展挂载目录空间"><meta name="keywords" content=""><meta name="author" content="Giftbear"><meta name="copyright" content="Giftbear"><title>Linux扩展挂载目录空间 | Giftbear Notes</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '6.3.0'
+} </script><meta name="generator" content="Hexo 6.3.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%A1%AC%E7%9B%98%E4%BF%A1%E6%81%AF"><span class="toc-number">1.</span> <span class="toc-text">查看硬盘信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA"><span class="toc-number">2.</span> <span class="toc-text">硬盘分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%89%A9%E7%90%86%E5%8D%B7"><span class="toc-number">3.</span> <span class="toc-text">创建物理卷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%8D%B7%E7%BB%84"><span class="toc-number">4.</span> <span class="toc-text">创建卷组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%80%BB%E8%BE%91%E5%8D%B7"><span class="toc-number">5.</span> <span class="toc-text">创建逻辑卷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E9%80%BB%E8%BE%91%E5%8D%B7"><span class="toc-number">6.</span> <span class="toc-text">格式化逻辑卷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%8D%B7%E6%8C%82%E8%BD%BD%E5%88%B0%E7%9B%AE%E5%BD%95"><span class="toc-number">7.</span> <span class="toc-text">逻辑卷挂载到目录</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/images/bear.png"></div><div class="author-info__name text-center">Giftbear</div><div class="author-info__description text-center"></div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/giftbear">Follow</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">18</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">6</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Giftbear Notes</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">Linux扩展挂载目录空间</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-11-30</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Linux/">Linux</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h3 id="查看硬盘信息"><a href="#查看硬盘信息" class="headerlink" title="查看硬盘信息"></a>查看硬盘信息</h3><ol>
+<li>查看硬盘: <code>fdisk -l/lsblk</code></li>
+</ol>
+<h3 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h3><ol>
+<li>硬盘分区: <code>fdisk /dev/sda</code> (N-&gt;P-&gt;1-&gt;W)</li>
+<li>格式化分区: <code>mkfs -t xfs /dev/sda1</code><br><font color=#FF0000>可以不分区使用整个硬盘</font></li>
+</ol>
+<h3 id="创建物理卷"><a href="#创建物理卷" class="headerlink" title="创建物理卷"></a>创建物理卷</h3><ol>
+<li>创建物理卷: <code>pvcreate /dev/sda1</code></li>
+<li>查看物理卷: <code>pvs/pvdisplay</code></li>
+<li>删除物理卷: <code>pvremove /dev/sda1</code></li>
+</ol>
+<ul>
+<li>已挂载目录的硬盘创建物理卷:<ul>
+<li>数据先备份</li>
+<li>取消挂载: <code>umount /dev/sda1</code> (设备名)或<code>umount /mnt</code> (挂载目录)<ul>
+<li>出现target is busy的问题: <code>fuser -m -k /mnt</code>后<code>umount /mnt</code></li>
+<li>创建物理卷时出现wipe xfs格式选择y</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="创建卷组"><a href="#创建卷组" class="headerlink" title="创建卷组"></a>创建卷组</h3><ol>
+<li>创建卷组: <code>vgcreate vgdata /dev/sda /dev/sdb</code> (将两个物理卷创建为名为vgdata的卷组)<ul>
+<li>也可先将&#x2F;dev&#x2F;sda创建为卷组，然后将&#x2F;dev&#x2F;sdb加入到卷组中: <code>vgextend vgdata /dev/sdb</code></li>
+</ul>
+</li>
+<li>查看卷组: <code>vgs/vgdisplay</code></li>
+<li>删除卷组: <code>vgremove vgdata</code></li>
+</ol>
+<h3 id="创建逻辑卷"><a href="#创建逻辑卷" class="headerlink" title="创建逻辑卷"></a>创建逻辑卷</h3><ol>
+<li>创建逻辑卷: <code>lvcreate -L 18.19T -n lvdata vgdata</code> (创建逻辑卷必须指定空间大小，以卷组vgdata创建名为lvdata的逻辑卷)</li>
+<li>扩容逻辑卷: <code>lvextend -l +100%FREE /dev/mapper/datavg-lvdata</code> (将所有空闲空间都扩容到逻辑卷中，也可指定扩容大小)</li>
+<li>扩容后系统重新读取扩容大小: <code>xfs_growfs /dev/mapper/datavg-lvdata</code> (被扩容的逻辑卷的数据不会被清除)</li>
+<li>查看逻辑卷: <code>lvs/lvdisplay</code></li>
+<li>删除逻辑卷: <code>lvremove /dev/mapper/datavg-lvdata</code></li>
+</ol>
+<h3 id="格式化逻辑卷"><a href="#格式化逻辑卷" class="headerlink" title="格式化逻辑卷"></a>格式化逻辑卷</h3><ol>
+<li>格式化逻辑卷: <code>mkfs -t xfs /dev/vgdata/lvdata</code> (已存在的逻辑卷不用格式化)</li>
+<li>查看文件系统格式: <code>df -Th</code></li>
+</ol>
+<h3 id="逻辑卷挂载到目录"><a href="#逻辑卷挂载到目录" class="headerlink" title="逻辑卷挂载到目录"></a>逻辑卷挂载到目录</h3><ol>
+<li>创建挂载目录：如果某目录已经挂载了设备，再挂载一个设备只会显示新挂载设备的内容，原设备的内容还在只不过被掩盖</li>
+<li>挂载: <code>mount /dev/vgdata/lvdata /mnt</code></li>
+<li>查看是否挂载成功: <code>df -h</code></li>
+<li>开机自动挂载:<br><code>vim /etc/fstab</code><br><code>/dev/mapper/datavg-lvdata /mnt xfs defaults 0 0</code></li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Giftbear</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2021/11/30/Linux扩展挂载目录空间/">http://example.com/2021/11/30/Linux扩展挂载目录空间/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/11/30/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"><i class="fa fa-chevron-left">  </i><span>Linux基础命令</span></a></div><div class="next-post pull-right"><a href="/2021/11/30/Linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"><span>Linux文件操作</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2023 By Giftbear</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
