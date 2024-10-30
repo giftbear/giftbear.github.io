@@ -13,15 +13,13 @@
 <li>删除图例标题: <code>theme(legend.title = element_blank())</code>;<code>guides(color = guide_legend(title = NULL))</code></li>
 <li>修改图例标题: <code>labs(legend_title = &quot;&quot;)</code></li>
 <li>修改图例名称: <code>scale_fill_manual(labels = c(&quot;A&quot; = &quot;A1&quot;))</code></li>
+<li>修改图例大小: <code>guides(color = guide_legend(override.aes = list(size = 4)))</code></li>
 <li>图例位置: <code>theme(legend.position = &quot;bottom&quot;)</code></li>
 </ol>
 <ul>
 <li>图例在图外的上下左右位置: “top”,”bottom”,”left”,”right”</li>
 <li>图例在图内左上的位置: <code>theme(legend.position = c(0, 1), legend.justification = c(0, 1))</code></li>
 </ul>
-<ol start="6">
-<li>修改图例大小: <code>guides(color = guide_legend(override.aes = list(size = 4)))</code></li>
-</ol>
 <h2 id="坐标轴"><a href="#坐标轴" class="headerlink" title="坐标轴"></a>坐标轴</h2><ol>
 <li>坐标轴文字倾斜: <code>theme(axis.text.x = element_text(angle = 45, hjust = 1))</code> <code>theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))</code></li>
 <li>修改坐标轴文本及范围: <code>scale_y_continuous(expand = c(0,0), limits = c(0, 1), breaks = c(0,0.25,0.5,0.75,1), label = c(&quot;0%&quot;,&quot;25%&quot;,&quot;50%&quot;,&quot;75%&quot;,&quot;100%&quot;))</code></li>
@@ -31,7 +29,7 @@
 <li>标题含有表达式: <code>labs(x = expression(log[2]*&#39;FoldChange&#39;, y = expression(-log[10]*&#39;pvalue&#39;)))</code></li>
 </ul>
 <h2 id="自定义颜色形状大小"><a href="#自定义颜色形状大小" class="headerlink" title="自定义颜色形状大小"></a>自定义颜色形状大小</h2><ol>
-<li>分类型变量: <code>scale_color_manual(values = c(</code>Up<code>=&quot;#b40000&quot;,</code>Down<code>=&quot;#004377&quot;,</code>Ns<code>=&quot;#bdbdbd&quot;))</code></li>
+<li>分类型变量: <code>scale_color_manual(values = c(&quot;Up&quot;=&quot;#b40000&quot;,&quot;Down&quot;=&quot;#004377&quot;,&quot;Ns&quot;=&quot;#bdbdbd&quot;))</code></li>
 <li>连续型变量: <code>scale_color_gradientn(values = seq(0, 1, 0.2), colors = c(&quot;#39489f&quot;,&quot;#39bbec&quot;,&quot;#f9ed36&quot;,&quot;#f38466&quot;,&quot;#b81f25&quot;))</code></li>
 <li>形状: <code>scale_shape_manual(values = c(&quot;up-triangle&quot; = 17, &quot;down-triangle&quot; = 25, &quot;circle&quot; = 16))</code></li>
 <li>大小: <code>scale_size_continuous(range = c(0, 1))</code></li>
